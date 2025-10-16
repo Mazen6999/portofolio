@@ -195,3 +195,81 @@ if ('serviceWorker' in navigator) {
         //     .catch(error => console.log('SW registration failed'));
     });
 }
+
+// Contact form submission: tries Formspree when data-endpoint is set on the form,
+// otherwise falls back to opening the user's email client via mailto:.
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const statusEl = form.querySelector('.form-status');
+        if (submitBtn) submitBtn.disabled = true;
+        statusEl.textContent = 'Sending...';
+
+        const formData = new FormData(form);
+        const payload = {
+            name: formData.get('name') || '',
+            email: formData.get('email') || '',
+            message: formData.get('message') || ''
+        };
+
+        const endpoint = form.getAttribute('data-endpoint') || '';
+        try {
+            if (endpoint) {
+                // POST to Formspree or any endpoint that accepts JSON
+                const res = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (res.ok) {
+                    statusEl.textContent = 'Message sent — thank you!';
+                    form.reset();
+                } else {
+                    const text = await res.text();
+                    statusEl.textContent = 'Sending failed. Please try again or email directly.';
+                    console.error('Form submission error:', text);
+                }
+            } else {
+                // Fallback: open mail client using mailto:
+                const subject = encodeURIComponent('Portfolio contact from ' + payload.name);
+                const body = encodeURIComponent(payload.message + '\n\nFrom: ' + payload.name + ' <' + payload.email + '>');
+                window.location.href = `mailto:mazen.shams6999@gmail.com?subject=${subject}&body=${body}`;
+                statusEl.textContent = 'Opening mail client...';
+            }
+        } catch (err) {
+            console.error('Contact form error', err);
+            statusEl.textContent = 'An unexpected error occurred. Try emailing directly.';
+        } finally {
+            if (submitBtn) submitBtn.disabled = false;
+            setTimeout(() => { statusEl.textContent = ''; }, 5000);
+        }
+    });
+});
+
+// Copy email button handler (small feedback)
+document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.copy-email');
+    if (!btn) return;
+    const email = btn.getAttribute('data-email');
+    if (!email) return;
+    navigator.clipboard?.writeText(email).then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = 'Copied';
+        setTimeout(() => btn.innerHTML = orig, 1800);
+    }).catch(() => {
+        // fallback: select text
+        const el = document.getElementById('primary-email');
+        if (el) {
+            const range = document.createRange();
+            range.selectNodeContents(el);
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+        }
+    });
+});

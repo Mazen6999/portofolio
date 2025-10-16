@@ -278,7 +278,7 @@ a:hover {
 .hero-buttons {
     display: flex;
     gap: 1rem;
-    justify-content: center;
+    justify-content: flex-start;
     margin-bottom: 2rem;
     flex-wrap: wrap;
 }
@@ -317,15 +317,206 @@ section {
 
 .about-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 3rem;
     align-items: start;
+    justify-items: center; /* center children horizontally */
+}
+
+.about-text {
+    text-align: center; /* center heading and paragraphs */
+    max-width: 900px; /* keep readable measure */
 }
 
 .about-text p {
     font-size: 1.1rem;
     color: #d1d5db;
     margin-bottom: 1.5rem;
+    margin-left: 0;
+}
+
+/* Contact form layout */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 360px 1fr; /* left column for stacked contact area, right for form */
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.contact-left {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: flex-start;
+    justify-content: center; /* center content vertically */
+    text-align: left;
+}
+
+/* Refined contact header */
+.contact-header { margin-bottom: 2rem; }
+.contact-sub {
+    color: #94a3b8;
+    max-width: 40rem;
+    margin: 0 auto 1.75rem auto;
+    text-align: center;
+}
+
+/* Contact card (white, blurred) */
+.contact-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255,255,255,0.9);
+    color: #0b1220;
+    border-radius: 12px;
+    border: 1px solid rgba(59,130,246,0.08);
+    box-shadow: 0 8px 30px rgba(30,58,138,0.06);
+}
+
+.icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background: linear-gradient(180deg,#dbeafe,#e0f2fe);
+    display:flex;align-items:center;justify-content:center;
+}
+.contact-card-title { font-weight: 600; margin: 0; color: #0b1220; }
+.contact-card-email { color: #475569; margin: 0; font-size: 0.95rem; }
+.copy-email { background: transparent; border: none; cursor: pointer; color: #64748b; padding: 0.4rem; border-radius: 6px; }
+.copy-email:hover { color: #0b3bd6; background: rgba(59,130,246,0.06); }
+
+.contact-section-heading { font-size: 1.125rem; font-weight: 600; color: #0b1220; margin-bottom: 0.75rem; }
+.contact-section-heading-sm { font-size: 1rem; color: #0b1220; margin-bottom: 0.5rem; }
+
+.contact-socials { display:flex; gap:0.75rem; }
+.social-btn { display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:9999px; background: rgba(255,255,255,0.9); border:2px solid rgba(59,130,246,0.12); color:#475569; transition: all .25s ease; }
+.social-btn:hover { transform: scale(1.08); color: #0b3bd6; background: rgba(59,130,246,0.04); border-color: rgba(59,130,246,0.3); }
+
+/* Form styles */
+.refined-form { display:flex; flex-direction:column; gap:1rem; }
+.form-label.small { display:block; font-size:0.9rem; color:#a5abb6; margin-bottom:0.4rem; }
+.form-input, .form-textarea { width:100%; padding:14px 16px; border-radius:10px; border:1px solid rgba(15,23,42,0.06); background: rgba(255,255,255,0.98); color:#0b1220; box-shadow: inset 0 1px 0 rgba(15,23,42,0.02); }
+.form-textarea { min-height:140px; resize:vertical; }
+.submit-btn { background: linear-gradient(90deg,#2563eb,#1e40af); color:white; padding:12px 16px; border-radius:10px; border:none; font-weight:600; cursor:pointer; transition: all .18s ease; }
+.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(14,165,233,0.08); }
+
+@media (max-width: 900px) {
+    .contact-grid { grid-template-columns: 1fr; }
+    .contact-left-col { order: 1; }
+    .contact-right-col { order: 2; }
+    .contact-card { max-width: 100%; }
+    /* contact title now uses shared .section-title styles */
+}
+
+/* Left stacked contact buttons (dark) */
+.left-contact-list { display:flex; flex-direction:column; gap:0.9rem; }
+.left-contact-item {
+    display:flex;
+    align-items:center;
+    gap:0.9rem;
+    padding:12px 18px;
+    border-radius:10px;
+    background: rgba(9,14,21,0.6);
+    border: 1px solid rgba(255,255,255,0.04);
+    color: #e6eefc;
+    width: 240px;
+    text-decoration: none;
+}
+.left-contact-item .left-icon { display:flex; align-items:center; justify-content:center; width:36px; height:36px; background: rgba(255,255,255,0.03); border-radius:8px; }
+.left-contact-item .left-label { font-weight:600; }
+.left-contact-item:hover { transform: translateY(-2px); background: rgba(255,255,255,0.03); border-color: rgba(96,165,250,0.06); }
+
+@media (max-width: 900px) {
+    .left-contact-item { width: 100%; }
+}
+
+/* small helpers for left column */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+/* Style contact buttons as stacked blocks */
+.contact-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.03);
+    width: 220px;
+    justify-content: flex-start;
+}
+
+.contact-item svg {
+    flex: 0 0 24px;
+}
+
+.contact-item:hover {
+    background: rgba(96,165,250,0.06);
+    border-color: rgba(96,165,250,0.12);
+}
+
+.contact-right {
+    width: 100%;
+}
+
+.contact-form {
+    background-color: rgba(255,255,255,0.02);
+    padding: 1.25rem 1.25rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.03);
+    box-shadow: 0 12px 30px rgba(2,6,23,0.45);
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #d1d5db;
+}
+
+.form-label input,
+.form-label textarea {
+    width: 100%;
+    padding: 0.9rem 0.85rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.01);
+    color: #e5e7eb;
+    margin-top: 0.4rem;
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 0.75rem;
+}
+
+.form-status {
+    color: #9ca3af;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 900px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+    .contact-item {
+        width: 100%;
+    }
+}
+
+/* Give the primary send button a consistent width on smaller forms */
+.contact-form .btn-primary {
+    min-width: 160px;
 }
 
 .skills h3 {
@@ -337,6 +528,121 @@ section {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+}
+
+/* CV-style skills layout */
+.cv-skills {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem 2rem;
+}
+
+.cv-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.cv-row {
+    color: #d1d5db;
+    line-height: 1.5;
+}
+
+.cv-row strong {
+    color: #e5e7eb;
+    font-weight: 700;
+    margin-right: 0.5rem;
+}
+
+@media (min-width: 800px) {
+    .cv-skills {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Skills cards layout */
+.skills-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1rem;
+}
+
+.skill-card {
+    background-color: #0f1724; /* slightly lighter than page */
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 8px 24px rgba(2,6,23,0.5);
+}
+
+.skill-card h4 {
+    margin-bottom: 0.75rem;
+    color: #e6eefc;
+}
+
+.skill-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.5rem;
+    border-radius: 8px;
+    background-color: rgba(255,255,255,0.01);
+    border: 1px solid rgba(255,255,255,0.02);
+}
+
+.skill-name {
+    color: #d1d5db;
+    font-size: 0.95rem;
+}
+
+.skill-badge {
+    background: linear-gradient(180deg,#3b82f6,#2563eb);
+    color: white;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+@media (max-width: 480px) {
+    .skill-card {
+        padding: 0.75rem;
+    }
+}
+
+/* Make skills cards horizontally scrollable on wider screens */
+@media (min-width: 900px) {
+    .skills-cards {
+        display: flex;
+        gap: 1.25rem;
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+        padding-bottom: 0.75rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .skill-card {
+        min-width: 300px;
+        flex: 0 0 300px;
+        scroll-snap-align: start;
+    }
+
+    .skills-cards::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .skills-cards::-webkit-scrollbar-thumb {
+        background: rgba(96,165,250,0.12);
+        border-radius: 6px;
+    }
 }
 
 .skill-category h4 {
@@ -371,6 +677,278 @@ section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+}
+
+/* Education Section */
+.education {
+    background-color: transparent;
+}
+
+.education-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.edu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem 1rem;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.01);
+    border: 1px solid rgba(255,255,255,0.02);
+}
+
+.edu-institution {
+    font-size: 1rem;
+    color: #e5e7eb;
+}
+
+.edu-degree {
+    font-size: 0.95rem;
+    color: #d1d5db;
+}
+
+.edu-right {
+    text-align: right;
+    min-width: 140px;
+}
+
+.edu-date {
+    font-weight: 700;
+    color: #e5e7eb;
+}
+
+.edu-meta {
+    color: #9ca3af;
+    font-size: 0.9rem;
+}
+
+/* Experience Section */
+.experience-grid {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-left: 40px; /* space for timeline */
+}
+
+.exp-card {
+    background-color: #0f1724;
+    border-radius: 12px;
+    padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+    border: 1px solid #1f2937;
+    box-shadow: 0 8px 20px rgba(2,6,23,0.45);
+    position: relative;
+}
+
+/* timeline line */
+.experience-grid::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(#1f2937, #111827);
+    border-radius: 2px;
+}
+
+/* marker for each entry */
+.exp-card::before {
+    content: '';
+    position: absolute;
+    left: -28px; /* align marker on the line */
+    top: 20px;
+    width: 14px;
+    height: 14px;
+    background: #60a5fa;
+    border: 3px solid #0b0f17;
+    border-radius: 50%;
+    box-shadow: 0 0 0 6px rgba(96,165,250,0.06);
+}
+
+.exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.exp-header h3 {
+    margin: 0;
+    color: #60a5fa;
+}
+
+.exp-date {
+    color: #9ca3af;
+    font-weight: 600;
+}
+
+.exp-sub {
+    color: #d1d5db;
+    margin-bottom: 0.75rem;
+}
+
+.exp-bullets {
+    margin-left: 1rem;
+    color: #d1d5db;
+}
+
+@media (min-width: 900px) {
+    .experience-grid {
+        gap: 1.75rem;
+        padding-left: 60px;
+    }
+
+    .exp-card::before {
+        left: -36px;
+        top: 24px;
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Certifications */
+.certifications .section-sub {
+    text-align: center;
+    color: #9ca3af;
+    margin-bottom: 1rem;
+}
+
+.cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.cert-vertical-list {
+    grid-template-columns: 1fr; /* force single column */
+}
+
+/* Horizontal square cards for certifications */
+.cert-horizontal-list {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.75rem;
+    scroll-snap-type: x mandatory;
+}
+
+.cert-horizontal-list .cert-card {
+    flex: 0 0 260px; /* card width */
+    scroll-snap-align: start;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 260px;
+    aspect-ratio: 1 / 1; /* square cards */
+    padding: 0; /* inner elements handle padding */
+    overflow: hidden;
+}
+
+.cert-thumb {
+    background-color: #e6eefc08; /* subtle placeholder */
+    flex: 1 1 auto;
+    min-height: 0; /* allow flex to size correctly */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* ensure full area is available for the image */
+}
+
+.cert-info {
+    background-color: #0f1724;
+    padding: 0.75rem 0.9rem;
+    border-top: 1px solid rgba(255,255,255,0.02);
+}
+
+/* Make thumbnail area ready for an img element if you want to add certificate picture */
+.cert-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* show the whole certificate inside the thumbnail */
+    display: block;
+    background-color: white; /* certificates often have white background */
+}
+
+/* Scrollbar styling */
+.cert-horizontal-list::-webkit-scrollbar {
+    height: 10px;
+}
+.cert-horizontal-list::-webkit-scrollbar-thumb {
+    background: rgba(96,165,250,0.12);
+    border-radius: 8px;
+}
+
+@media (max-width: 480px) {
+    .cert-horizontal-list .cert-card {
+        flex: 0 0 200px;
+        width: 200px;
+    }
+}
+
+.cert-card {
+    display: block; /* anchor wrapper behaves as a block */
+    background-color: #0f1724;
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid #1f2937;
+    box-shadow: 0 6px 18px rgba(2,6,23,0.35);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+    text-decoration: none; /* anchors shouldn't underline */
+    color: inherit;
+}
+
+.cert-card h4 {
+    color: #e5e7eb;
+    margin-bottom: 0.25rem;
+}
+
+.cert-org {
+    color: #60a5fa;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.cert-date {
+    color: #9ca3af;
+    font-size: 0.9rem;
+}
+
+.cert-id {
+    color: #6b7280;
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+}
+
+.cert-card-inner {
+    /* inner wrapper keeps spacing when anchor is full-card */
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    width: 100%;
+}
+
+.cert-card:focus,
+.cert-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(96,165,250,0.12);
+    background-color: rgba(96,165,250,0.02);
+    outline: none;
+}
+
+.cert-card:active {
+    transform: translateY(-2px);
+}
+
+.cert-list {
+    margin-top: 1rem;
+    color: #d1d5db;
 }
 
 /* Horizontal scrollable projects on wide screens */
