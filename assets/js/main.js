@@ -204,10 +204,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const statusEl = form.querySelector('.form-status');
-        if (submitBtn) submitBtn.disabled = true;
-        statusEl.textContent = 'Sending...';
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const statusEl = form.querySelector('.form-status');
+    if (submitBtn) submitBtn.disabled = true;
+    if (statusEl) statusEl.textContent = 'Sending...';
 
         const formData = new FormData(form);
         const payload = {
@@ -227,11 +227,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (res.ok) {
-                    statusEl.textContent = 'Message sent — thank you!';
+                    if (statusEl) statusEl.textContent = 'Message sent — thank you!';
                     form.reset();
                 } else {
                     const text = await res.text();
-                    statusEl.textContent = 'Sending failed. Please try again or email directly.';
+                    if (statusEl) statusEl.textContent = 'Sending failed. Please try again or email directly.';
                     console.error('Form submission error:', text);
                 }
             } else {
@@ -239,14 +239,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const subject = encodeURIComponent('Portfolio contact from ' + payload.name);
                 const body = encodeURIComponent(payload.message + '\n\nFrom: ' + payload.name + ' <' + payload.email + '>');
                 window.location.href = `mailto:mazen.shams6999@gmail.com?subject=${subject}&body=${body}`;
-                statusEl.textContent = 'Opening mail client...';
+                if (statusEl) statusEl.textContent = 'Opening mail client...';
             }
         } catch (err) {
             console.error('Contact form error', err);
-            statusEl.textContent = 'An unexpected error occurred. Try emailing directly.';
+            if (statusEl) statusEl.textContent = 'An unexpected error occurred. Try emailing directly.';
         } finally {
             if (submitBtn) submitBtn.disabled = false;
-            setTimeout(() => { statusEl.textContent = ''; }, 5000);
+            if (statusEl) setTimeout(() => { statusEl.textContent = ''; }, 5000);
         }
     });
 });
